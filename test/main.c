@@ -42,5 +42,13 @@ int main(int argc, char **argv)
     TEST_CMPR(error, "%d", EMBCLI_NO_ERROR, "%d");
     STR_CMPR(out_buffer, "0.00 0.00 0.00 0.00 \n");
 
+    strcpy(in_buffer, "write_analog 0:1.0 1:2.0");
+    error = embcli_interpret(&state, in_buffer, BUFFER_SIZE, out_buffer, BUFFER_SIZE);
+    TEST_CMPR(error, "%d", EMBCLI_NO_ERROR, "%d");
+    strcpy(in_buffer, "read_analog");
+    error = embcli_interpret(&state, in_buffer, BUFFER_SIZE, out_buffer, BUFFER_SIZE);
+    TEST_CMPR(error, "%d", EMBCLI_NO_ERROR, "%d");
+    STR_CMPR(out_buffer, "1.00 2.00 0.00 0.00 \n");
+
     return 0;
 }
